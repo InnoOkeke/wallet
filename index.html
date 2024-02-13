@@ -1,44 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solana Wallet Connect</title>
+  <script>
+    function getAccount() {
+      solana.connect().then((x) => {
+        console.log(x.publicKey.toString())
+      })
+    }
+  </script>
 </head>
+
 <body>
-    <button id="connectButton">Connect to Solana Wallet</button>
-
-    <script>
-        async function init() {
-            let wallet = null;
-
-            // Check for Sollet.io extension
-            if (window.sollet && window.sollet.isSolletInstalled) {
-                wallet = window.sollet;
-            }
-            // Check for Raydium extension
-            else if (window.phantom && window.phantom.wallet) {
-                wallet = window.phantom.wallet;
-            }
-            // Check for Solflare extension
-            else if (window.solflare && window.solflare.isSolflareInstalled) {
-                wallet = window.solflare;
-            }
-            // Add more wallet checks for other wallet extensions as needed
-
-            if (wallet) {
-                // Connect to the wallet
-                await wallet.connect();
-
-                console.log("Connected to Solana Wallet");
-                console.log("Wallet Public Key:", wallet.publicKey.toBase58());
-            } else {
-                console.error("No supported Solana wallet extension detected");
-                // Provide a message to the user indicating that they need to install a supported wallet extension
-            }
-        }
-
-        document.getElementById("connectButton").addEventListener("click", init);
-    </script>
+  <button onClick="javascript:getAccount()">Click me!</button>
 </body>
+
 </html>
