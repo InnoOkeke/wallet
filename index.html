@@ -14,15 +14,34 @@
 
     <script>
         async function init() {
-            // Create an instance of the Wallet class from the Solana Wallet Adapter
-            const { Wallet } = solanaWalletAdapter;
-            const wallet = new Wallet("https://www.sollet.io");
+            let wallet = null;
 
-            // Connect to the wallet
-            await wallet.connect();
+            // Check for Sollet.io extension
+            if (window.sollet && window.sollet.isSolletInstalled) {
+                wallet = new solanaWalletAdapter.Wallet("https://www.sollet.io");
+            }
+            // Check for Raydium extension
+            else if (window.raydium && window.raydium.wallet) {
+                // Raydium wallet is automatically available via the `raydium` object
+                wallet = window.raydium.wallet;
+            }
+            // Check for Solflare extension
+            else if (window.solflare && window.solflare.isSolflareInstalled) {
+                // Create a Solflare wallet instance
+                wallet = new solanaWalletAdapter.Wallet("https://solflare.com");
+            }
+            // Add more wallet checks for other wallet extensions as needed
 
-            console.log("Connected to Solana Wallet");
-            console.log("Wallet Public Key:", wallet.publicKey.toBase58());
+            if (wallet) {
+                // Connect to the wallet
+                await wallet.connect();
+
+                console.log("Connected to Solana Wallet");
+                console.log("Wallet Public Key:", wallet.publicKey.toBase58());
+            } else {
+                console.error("No supported Solana wallet extension detected");
+                // Provide a message to the user indicating that they need to install a supported wallet extension
+            }
         }
 
         document.getElementById("connectButton").addEventListener("click", init);
