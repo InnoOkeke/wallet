@@ -3,10 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solana Wallet Connect</title>
+    <title>Simple Solana DApp</title>
+    <style>
+        /* Add your CSS styles here */
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+        #connectButton {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-    <button id="connectButton">Connect to Solana Wallet</button>
+    <div class="container">
+        <h1>Simple Solana DApp</h1>
+        <p id="walletInfo">Click the button below to connect to your Solana wallet.</p>
+        <button id="connectButton">Connect to Solana Wallet</button>
+    </div>
 
     <script>
         async function init() {
@@ -26,11 +47,10 @@
                 // Connect to the wallet
                 await wallet.connect();
 
-                console.log("Connected to Solana Wallet");
-                console.log("Wallet Public Key:", wallet.publicKey.toBase58());
+                // Display wallet information
+                document.getElementById("walletInfo").innerHTML = "Connected to Solana Wallet<br>Public Key: " + wallet.publicKey.toBase58();
             } else {
-                console.error("No supported Solana wallet extension detected");
-                // Provide a message to the user indicating that they need to install a supported wallet extension
+                document.getElementById("walletInfo").innerHTML = "No supported Solana wallet extension detected";
             }
         }
 
