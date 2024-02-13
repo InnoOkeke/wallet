@@ -3,58 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Solana DApp</title>
-    <style>
-        /* Add your CSS styles here */
-        body {
-            font-family: Arial, sans-serif;
-        }
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            text-align: center;
-        }
-        #connectButton {
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-    </style>
+    <title>Solana Wallet Connect</title>
 </head>
 <body>
-    <div class="container">
-        <h1>Simple Solana DApp</h1>
-        <p id="walletInfo">Click the button below to connect to your Solana wallet.</p>
-        <button id="connectButton">Connect to Solana Wallet</button>
+    <div id="app">
+        <h1>Solana Wallet Connect</h1>
+        <p v-if="!connected">Click the button below to connect to your Solana wallet.</p>
+        <p v-else>Connected to Solana Wallet<br>Public Key: {{ publicKey }}</p>
+        <button @click="connect" v-if="!connected">Connect to Solana Wallet</button>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@solana/wallet-adapter"></script>
     <script>
-        async function init() {
-            let wallet = null;
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                    connected: false,
+                    publicKey: ''
+                };
+            },
+            methods: {
+                async connect() {
+                    const { Wallet } = solanaWeb3Wallet;
+                    const wallet = new Wallet("https://www.sollet.io");
 
-            // Check for Phantom wallet extension
-            if (window.solana && window.solana.isPhantom) {
-                wallet = window.solana;
+                    try {
+                        await wallet.connect();
+                        this.connected = true;
+                        this.publicKey = wallet.publicKey.toBase58();
+                    } catch (error) {
+                        console.error("Error connecting to Solana wallet:", error);
+                    }
+                }
             }
-            // Check for Sollet extension
-            else if (window.sollet && window.sollet.isSolletInstalled) {
-                wallet = window.sollet;
-            }
-            // Add more wallet checks for other wallet extensions as needed
-
-            if (wallet) {
-                // Connect to the wallet
-                await wallet.connect();
-
-                // Display wallet information
-                document.getElementById("walletInfo").innerHTML = "Connected to Solana Wallet<br>Public Key: " + wallet.publicKey.toBase58();
-            } else {
-                document.getElementById("walletInfo").innerHTML = "No supported Solana wallet extension detected";
-            }
-        }
-
-        document.getElementById("connectButton").addEventListener("click", init);
+        });
     </script>
 </body>
 </html>
