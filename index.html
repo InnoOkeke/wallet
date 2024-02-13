@@ -26,10 +26,9 @@
             },
             methods: {
                 async connect() {
-                    const { Wallet } = solanaWeb3Wallet;
-                    const wallet = new Wallet("https://www.sollet.io");
-
                     try {
+                        const { PhantomWallet } = solanaWeb3Wallet;
+                        const wallet = new PhantomWallet();
                         await wallet.connect();
                         this.connected = true;
                         this.publicKey = wallet.publicKey.toBase58();
