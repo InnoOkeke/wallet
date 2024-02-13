@@ -6,7 +6,7 @@
     <title>Solana Wallet Connect</title>
 </head>
 <body>
-    <button id="connectButton">Connect to Solana Wallet</button>
+    <button id="connectButton" onclick="init()">Connect to Solana Wallet</button>
 
     <script src="https://cdn.jsdelivr.net/npm/@solana/wallet-adapter"></script>
     <script src="https://cdn.jsdelivr.net/npm/@solana/wallet-adapter-react"></script>
@@ -24,8 +24,6 @@
 
             console.log("Connected to Solana Wallet");
         }
-
-        document.getElementById("connectButton").addEventListener("click", init);
     </script>
 </body>
 </html>
