@@ -8,27 +8,21 @@
 <body>
     <button id="connectButton">Connect to Solana Wallet</button>
 
-    <script src="https://cdn.jsdelivr.net/npm/@solana/web3.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@solana/wallet-adapter"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@solana/wallet-adapter-react"></script>
+    <!-- Add additional adapter packages as needed -->
+
     <script>
         async function init() {
-            const network = "https://api.mainnet-beta.solana.com"; // Mainnet network URL
+            // Create an instance of the Wallet class from the Solana Wallet Adapter
+            const { Wallet } = solanaWalletAdapter;
+            const wallet = new Wallet("https://www.sollet.io");
 
-            // Connect to the Solana network
-            const connection = new solanaWeb3.Connection(network);
+            // Connect to the wallet
+            await wallet.connect();
 
-            // Check if the wallet is connected
-            if (window.sollet && window.sollet.isSolletInstalled) {
-                // Initialize the Sollet wallet provider
-                const wallet = window.sollet.connect("mainnet-beta");
-
-                // Connect to the wallet
-                await wallet.connect();
-
-                console.log("Connected to Solana Wallet");
-                console.log("Wallet Public Key:", wallet.publicKey.toBase58());
-            } else {
-                console.error("Sollet Wallet extension not installed");
-            }
+            console.log("Connected to Solana Wallet");
+            console.log("Wallet Public Key:", wallet.publicKey.toBase58());
         }
 
         document.getElementById("connectButton").addEventListener("click", init);
