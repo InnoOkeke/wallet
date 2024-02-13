@@ -8,27 +8,21 @@
 <body>
     <button id="connectButton">Connect to Solana Wallet</button>
 
-    <script src="https://cdn.jsdelivr.net/npm/@solana/wallet-adapter"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@solana/wallet-adapter-react"></script>
-    <!-- Add additional adapter packages as needed -->
-
     <script>
         async function init() {
             let wallet = null;
 
             // Check for Sollet.io extension
             if (window.sollet && window.sollet.isSolletInstalled) {
-                wallet = new solanaWalletAdapter.Wallet("https://www.sollet.io");
+                wallet = window.sollet;
             }
             // Check for Raydium extension
             else if (window.raydium && window.raydium.wallet) {
-                // Raydium wallet is automatically available via the `raydium` object
                 wallet = window.raydium.wallet;
             }
             // Check for Solflare extension
             else if (window.solflare && window.solflare.isSolflareInstalled) {
-                // Create a Solflare wallet instance
-                wallet = new solanaWalletAdapter.Wallet("https://solflare.com");
+                wallet = window.solflare;
             }
             // Add more wallet checks for other wallet extensions as needed
 
