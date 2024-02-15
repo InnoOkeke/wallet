@@ -1,11 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- Development (un-minified) -->
-<script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.js"></script>
-
-.button {
-  background-color: #555555; /* Green */
+  .button {
+  background-color: #555555;
   border: none;
   color: white;
   padding: 15px 32px;
@@ -16,10 +13,12 @@
   margin: 4px 2px;
   cursor: pointer;
 }
+<!-- Development (un-minified) -->
+<script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.js"></script>
 
 </head>
 <body>
-<button onclick="connectWallet()">Connect Wallet</button>
+<button onclick="connectWallet()" class="button">Connect Wallet</button>
 
 
 <p id="status_p">Status: <span id="status">Disconnected</span></p>
