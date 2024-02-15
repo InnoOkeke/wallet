@@ -24,7 +24,9 @@
 
 
 <p style="color:MediumSeaGreen;" id="status_p">Status: <span id="status">Disconnected</span></p>
-<script>
+
+</body>
+  <script>
 var wallet;
 const lamports_per_sol= solanaWeb3.LAMPORTS_PER_SOL;
 function connectWallet(){
@@ -44,5 +46,4 @@ window.solana.on("connect", () => document.getElementById("status").innerText="C
 
     
 </script>
-</body>
 </html>
