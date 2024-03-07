@@ -1,0 +1,14 @@
+  "version": "1.0.0",
+  "name": "@InnoOkeke/wallet",
+  "description": "A simple wallet connect button",
+  "author": {
+    "name": "Innocent O",
+    "email": "leprofcode@gmail.com",
+  },
+  "repository": {
+      "type": "git",
+      "url": "https://github.com/InnoOkeke/wallet"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/InnoOkeke"
+  },
